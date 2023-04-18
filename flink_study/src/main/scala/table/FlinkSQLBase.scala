@@ -54,13 +54,15 @@ object FlinkSQLBase {
 
 
     //需求：每个用户每次会话中各类行为的发生次数，并将结果输出到控制台
-    tableEnv.executeSql(
+    val result = tableEnv.executeSql(
       """
         |select
         |guid,sessionId,eventId,count(1)
         |from log_event
         |group by guid,sessionId,eventId
-        |""".stripMargin).print()
+        |""".stripMargin)
+    result.print()
+
 
     env.execute("Flink SQL Example")
   }
